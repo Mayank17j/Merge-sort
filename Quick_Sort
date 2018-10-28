@@ -1,0 +1,89 @@
+/*	
+	Program to implement Quick Sort  --MAYANK JAISWAL
+	It is based on Divide and Conquer algorithm.
+	The best case of Quicksort has a running time of O(nlogn) 
+		and in the worst case it reaches to  O(n^2)
+	The worst case of Quicksort which has a running time of O(n^2),
+		occurs (in sorted array and array which have same elements) and can be avoid.
+		
+	PROS : 1)One of the best sorting algorithm for large inputs.
+		   2)Best sorting mechanism for sort any particular element.
+		   3)Require less memory space than merge sort
+	CONS : 1)NOt sutable for very sort arrays.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+int a[20];
+void swap(int* a, int* b){ 
+    int t = *a; 
+    *a = *b; 
+    *b = t; 
+} 
+
+int partition(int[],int,int);
+void sort(int[],int,int);
+int main(){
+	//	randomize();
+    int p=0,r;
+    cout<<"Enter the size of array : ";
+        cin>>r;
+    //int a[r];
+    cout<<"Enter "<<r<<" elements : \n";
+    for(int i=0;i<r;i++){
+        cin>>a[i];
+    }
+//int a[s]={8,1,7,2,6,3,5,4};
+    sort(a,p,r-1);
+    cout<<"\nValue after sorted...\n";
+    for(int i=0;i<r;i++){
+        cout<<a[i]<<" ";
+    }
+}
+
+
+void sort(int a[],int p,int r){
+	int q;
+	if(p<r){
+		q=partition(a,p,r);
+        sort(a,p,q-1);
+        sort(a,q+1,r);
+    }
+}
+
+
+int partition(int a[],int p,int r){
+/*We can choose the pivot element by the following ways...
+	~ pick first element as pivot.
+	~ pick last element as pivot.
+	~ Pick a random element as pivot.
+	~ Pick median as pivot.
+*/
+	// We are Choosing last element as pivot in the subarray.
+	//		randomize();
+
+	int pivot=a[r];
+//	pivot=random(p,r);
+	int i=p-1,temp;
+	// Split elements between smaller than pivot and greater than pivot.
+	for(int j=p;j<r;j++){
+		// If an element less than or equal to the pivot is found...
+		if(a[j]<=pivot){
+			i=i+1;
+			// The swaping
+			swap(&a[i],&a[j]);
+		}
+	}
+	// The swaping
+	swap(&a[i+1],&a[r]);
+	
+	return i+1;
+}
+/*
+The quick sort works on the divide-and-conquer principle. 
+First, it partitions the list of items into two sublists based on a pivot element. 
+All elements in the first sublist are arranged to be smaller than the pivot, 
+	while all elements in the second sublist are arranged to be larger than the pivot. 
+The same partitioning and arranging process is performed repeatedly on the resulting 
+sublists until the whole list of items are sorted.
+*/
