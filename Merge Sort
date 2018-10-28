@@ -1,0 +1,81 @@
+/*
+Program to implement Merge Sort Algorithm Using c++.
+by MAYANK JAISWAL
+on 27 oct 2018
+
+The Merge sort works on the divide-and-conquer principle.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+int a[20];
+int msort(int,int);
+int merg(int,int,int);
+
+//Driver function
+int main(){
+int i,s;
+cout<<"Enter the size of array = ";
+	cin>>s;
+cout<<"Enter "<<s<<" elements \n";
+	for(i=1;i<=s;i++)
+		cin>>a[i];
+msort(1,s);
+cout<<"Array after sorting\n";
+	for(i=1;i<=s;i++)
+		cout<<a[i]<<" ";
+}
+
+/*	Function for Merge Sort
+It used to divide the array into two sub arrays
+and merging the array[p...r]
+*/
+msort(int p,int r)
+{
+int q;
+if(p<r)
+	{
+	q=(p+r)/2;
+	msort(p,q);
+	msort(q+1,r);
+	merg(p,q,r);
+	}
+else
+	return 0;
+}
+
+/*	Merge fuinction
+Merge two subarray l[p...q] and R[q+1...r].
+*/
+merg(int p,int q,int r)
+{
+int n1,n2,i,j,k,l[20],R[20];
+//calculating size of first half array.
+n1=q-p+1;
+//calculating size of second half array.
+n2=r-q;
+//Coping first half array into l[].
+for(i=1;i<=n1;i++)
+	l[i]=a[p-1+i];
+//Coping second half array into R[].
+for(j=1;j<=n2;j++)
+	R[j]=a[q+j];
+//Putting the greatest (infinite) value of respective data structure at last value of l[] and R[].
+l[n1+1]=32767;
+R[n2+1]=32767;
+//putting pointer i & j to the initial point of array.
+i=j=1;
+//comparing the element for sorting
+for(k=p;k<=r;k++)
+	if(l[i]<=R[j])
+	   {
+	   a[k]=l[i];
+	   i++;
+	   }
+	else
+	   {
+	   a[k]=R[j];
+	   j++;
+	   }
+return 0;
+}
